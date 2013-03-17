@@ -1,0 +1,23 @@
+# Python bytecode #
+###################
+*.py[co]
+
+# OS files #
+############
+.DS*
+._*
+.Spotlight*
+.Trash*
+
+# User-generated templates/settings #
+#####################################
+templates
+settings.py
+
+# Problem folder/sandbox #
+##########################
+tmp
+
+# Documentation folder #
+########################
+doc
