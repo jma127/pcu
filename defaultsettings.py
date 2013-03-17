@@ -13,6 +13,7 @@ printstdout = True # If stdout output found, print it (file mode only)
 printstderr = True # If stderr output found, print it
 printexpected = True # If wrong answer found, print expected output
 printsummary = True # If true, will print summary of all test results
+acceptformatting = False # If true, all "Presentation Error" will be "Correct"
 
 # Language Extensions (mapped to language names)
 
