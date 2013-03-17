@@ -59,7 +59,7 @@ def run ():
                 outcomes['No Answer File'] += 1
             elif ans == output or \
                  (''.join(ans.split()) == ''.join(output.split())
-                  and settings.acceptformatting)::
+                  and settings.acceptformatting):
                 print 'Correct'
                 outcomes['Correct'] += 1
             elif ''.join(ans.split()) == ''.join(output.split()):
