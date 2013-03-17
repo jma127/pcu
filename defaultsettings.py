@@ -4,7 +4,9 @@ import getpass
 
 username = getpass.getuser() # Your name
 defaultlangext = 'cpp' # Preferred language extension
-defaultmode = 'file' # Preferred I/O mode (stdio or file)
+defaultmode = 'stdio' # Preferred I/O mode (stdio or file)
+                      # Note that USACO uses file I/O, while other competitions
+                      # use stdio
 printinput = True # Print test inputs
 printoutput = True # Print program outputs
 printstdout = True # If stdout output found, print it (file mode only)
