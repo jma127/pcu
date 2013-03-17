@@ -163,7 +163,7 @@ Each executable is passed two command-line arguments:
 
 * ``number``: the number of the current test case to be generated
 * ``seed``: an arbitrary seed (different for each test cases) that can be used
-for randomly generating test cases, between 0 and 2147483647
+  for randomly generating test cases, between 0 and 2147483647
 
 The executable should then output the test case input data to stdout, and the
 expected output (answer) to stderr. Below is an example of a test generator for
