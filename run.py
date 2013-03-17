@@ -87,5 +87,5 @@ def run ():
         print 'Results Summary'
         for outcome in outcomes:
             print '{:2d} | {:<20}'.format(outcomes[outcome], outcome)
-        print 'Total Score: {:.1f}'.format((100.0 * outcomes['Correct']) / len(cases)); 
+        print 'Total Score: {:.1f}'.format((100.0 * outcomes['Correct']) / max(1, len(cases))); 
     return True
