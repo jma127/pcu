@@ -171,8 +171,7 @@ a "sum two integers" problem::
 
     #!/usr/bin/python
     import random, sys
-    random.seed(sys.argv[2]) # the second command line argument is the random
-seed
+    random.seed(sys.argv[2]) # the second argument is the random seed
     a, b = random.randint(0, 1000000), random.randint(0, 1000000)
     print a, b
     print >> sys.stderr, a + b
