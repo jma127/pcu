@@ -63,7 +63,6 @@ def runproc (cmd, workingdir, stdin=None, timelim=10.0, sleepintvl=0.01):
     stdinfile = open(stdinname, 'rb', 1)
     stdoutfile = open(stdoutname, 'wb', 1)
     stderrfile = open(stderrname, 'wb', 1)
-    print cmd
     proc = subprocess.Popen(shlex.split(cmd), cwd=workingdir, stdin=stdinfile,
                             stdout=stdoutfile, stderr=stderrfile)
     cputime = 0.0
