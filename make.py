@@ -2,6 +2,7 @@ import os
 
 import globals
 import helper
+import log
 import pattern
 import settings
 
@@ -15,4 +16,5 @@ def make ():
         return False
     helper.write(os.path.join(globals.working, globals.getsrc()), pattern.convert(template))
     print 'Source file created: ' + globals.getsrc()
+    log.addmsg('Creating {} source file for problem {}'.format(settings.langexts[globals.getext()], globals.getprob()))
     return True

@@ -3,6 +3,7 @@ import os
 import collections
 import globals
 import helper
+import log
 import pattern
 import settings
 
@@ -89,5 +90,6 @@ def run ():
         print 'Results Summary'
         for outcome in outcomes:
             print '{:2d} | {:<20}'.format(outcomes[outcome], outcome)
-        print 'Total Score: {:.1f}'.format((100.0 * outcomes['Correct']) / max(1, len(cases))); 
+        print 'Total Score: {:.1f}'.format((100.0 * outcomes['Correct']) / max(1, len(cases)))
+    log.addmsg('Executed problem {} in {} I/O mode with score {:.1f}'.format(globals.getprob(), globals.getmode(), (100.0 * outcomes['Correct']) / max(1, len(cases))))
     return True

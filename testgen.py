@@ -3,6 +3,7 @@ import random
 
 import globals
 import helper
+import log
 
 # Test Generator Framework
 
@@ -35,3 +36,4 @@ def testgen ():
         infile.close()
         ansfile.close()
         curtest += 1
+    log.addmsg('Generated {} tests for problem {} with {}'.format(numcases, globals.getprob(), execorig.name))

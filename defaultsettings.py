@@ -14,6 +14,7 @@ printstderr = True # If stderr output found, print it
 printexpected = True # If wrong answer found, print expected output
 printsummary = True # If true, will print summary of all test results
 acceptformatting = False # If true, all "Presentation Error" will be "Correct"
+logactions = True # If true, all pcu actions will be recorded in contest logs
 
 # Language Extensions (mapped to language names)
 

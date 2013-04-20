@@ -3,6 +3,7 @@ import sys
 
 import globals
 import helper
+import log
 import parse
 import settings
 
@@ -34,6 +35,7 @@ def setfile (ext):
         input = file.read()
     helper.write(os.path.join(globals.probdir, testid + ext), input)
     print 'Set {} successfully'.format(exttotype[ext])
+    log.addmsg('Set test case {} {} for problem {}'.format(testid, type, globals.getprob()))
     return True
 
 # Get test case data
