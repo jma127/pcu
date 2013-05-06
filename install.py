@@ -11,7 +11,7 @@ defaultsettings = os.path.join(dir, 'defaultsettings.py')
 settings = os.path.join(dir, 'settings.py')
 path =  os.environ['PATH'].split(os.pathsep)
 script = """# PCU Launcher (place this script in path)
-python {} $@
+python '{}' $@
 """.format(os.path.join(dir, 'main.py'))
 installed = False
 
