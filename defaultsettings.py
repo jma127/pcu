@@ -45,8 +45,8 @@ compcommands = {
     'C': 'gcc -Wall -Wextra -O2 -o $PROB.exe $SRCFILE',
     'C++': 'g++ -Wall -Wextra -O2 -o $PROB.exe $SRCFILE',
     'Java': 'javac $SRCFILE',
-    'Python': 'python -m py_compile $SRCFILE',
-    'Shell': None
+    'Python': None,
+    'Shell': None,
 }
 
 # Execution Commands
@@ -55,8 +55,8 @@ execcommands = {
     'C': './$PROB.exe',
     'C++': './$PROB.exe',
     'Java': 'java $PROB',
-    'Python': 'python $PROB.pyc',
-    'Shell': '$SRCFILE'
+    'Python': 'python $PROB.py',
+    'Shell': '$SRCFILE',
 }
 
 # File Specifications
