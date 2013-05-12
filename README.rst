@@ -14,7 +14,7 @@ Download
 
 The PCU git repository can be obtained by::
 
-    $ git clone git://github.com/jma127/pcu.git
+    $ git clone https://github.com/jma127/pcu.git
 
 A ZIP version of the project folder is also available at
 
