@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import os
 import shutil
 
@@ -10,9 +11,6 @@ templatefolder = os.path.join(dir, 'templates')
 defaultsettings = os.path.join(dir, 'defaultsettings.py')
 settings = os.path.join(dir, 'settings.py')
 path =  os.environ['PATH'].split(os.pathsep)
-script = """# PCU Launcher (place this script in path)
-python '{}' $@
-""".format(os.path.join(dir, 'main.py'))
 installed = False
 
 # Installer
@@ -25,14 +23,13 @@ print
 print 'Installing launcher...'
 for folder in path:
     try:
-        file = open(os.path.join(folder, 'pcu'), 'wb')
-        file.write(script)
-        file.close()
-        os.chmod(os.path.join(folder, 'pcu'), 0755)
+        link = os.path.join(folder, 'pcu')
+        os.symlink(os.path.join(dir, 'main.py'), link)
+        os.chmod(link, 0755)
         print 'Launcher installed in ' + folder
         installed = True
         break
-    except IOError as error:
+    except Exception:
         pass
 
 if not installed:
