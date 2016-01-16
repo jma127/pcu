@@ -43,7 +43,7 @@ timeconstraints = {
 
 compcommands = {
     'C': 'gcc -Wall -Wextra -O2 -o $PROB.exe $SRCFILE',
-    'C++': 'g++ -Wall -Wextra -O2 -o $PROB.exe $SRCFILE',
+    'C++': 'g++ --std=c++1y -Wall -Wextra -O2 -o $PROB.exe $SRCFILE',
     'Java': 'javac $SRCFILE',
     'Python': None,
     'Shell': None,
