@@ -1,6 +1,9 @@
 user: os_username
 default_env: cpp
 datetime_format: '%Y-%m-%d %H:%M %Z'
+max_lines_output: 256
+max_lines_error: 256
+
 envs:
     cpp:
         template_file: 'cpp.cpp'
@@ -23,6 +26,7 @@ envs:
         compile_timelimit_msec: 60000
         run_timelimit_msec: 5000
         format_strictness: strict
+        aliases: [c++_file]
     cc:
         template_file: 'cpp.cpp'
         source_file: ${PCU_PROBLEM_NAME}.cc
@@ -104,6 +108,7 @@ envs:
         compile_timelimit_msec: 60000
         run_timelimit_msec: 5000
         format_strictness: strict
+        aliases: [py_file, py2_file, python_file]
     python3:
         template_file: 'python3.py'
         source_file: ${PCU_PROBLEM_NAME}.py
@@ -125,3 +130,4 @@ envs:
         compile_timelimit_msec: 60000
         run_timelimit_msec: 5000
         format_strictness: strict
+        aliases: [py3_file]

@@ -2,6 +2,9 @@ import collections
 import difflib
 import enum
 import inflection
+import io
+import itertools
+import os
 import pathlib
 import shutil
 import string
@@ -10,6 +13,7 @@ import sys
 from typing import DefaultDict, Iterable, List, Optional
 
 from . import color_utils
+from . import config
 from . import environment
 from . import problem
 
@@ -30,6 +34,20 @@ class TestCaseResult(enum.Enum):
             return [color_utils.Fore.YELLOW]
         else:
             return [color_utils.Fore.RED]
+
+
+def _print_truncate(
+    lines: Iterable,
+    max_lines: int,
+    outfile,
+) -> None:
+    for i, line in enumerate(itertools.islice(lines, max_lines)):
+        if i + 1 == max_lines:
+            outfile.write('... (diff goes on) ...\n')
+        else:
+            outfile.write(line)
+            if not line.endswith('\n'):
+                outfile.write('<EOF>\n')
 
 
 def run_cases(prob: problem.Problem,
@@ -93,6 +111,8 @@ def run_cases(prob: problem.Problem,
 
 
 def _run_case(prob, working_dir, test_id) -> TestCaseResult:
+    settings = config.get_settings()
+
     test_input_path = prob.get_test_input_path(test_id)
     test_output_path = prob.get_test_output_path(test_id)
     test_error_path = prob.get_test_error_path(test_id)
@@ -131,7 +151,6 @@ def _run_case(prob, working_dir, test_id) -> TestCaseResult:
                 input_file.close()
             except Exception:
                 pass
-
 
     assert sp_result is not None
     if sp_result.returncode != 0:
@@ -176,13 +195,19 @@ def _run_case(prob, working_dir, test_id) -> TestCaseResult:
         print(inflection.humanize(result.name), "-- here's the diff:",
               file=sys.stderr)
 
-    for line in difflib.unified_diff(expected_output.splitlines(keepends=True),
-                                     actual_output.splitlines(keepends=True),
-                                     fromfile='expected output',
-                                     tofile='actual output',
-                                     n=(1 ** 30)):
-        sys.stderr.write(line)
-        if not line.endswith('\n'):
-            sys.stderr.write('<EOF>\n')
+    diff_iter = difflib.unified_diff(
+        expected_output.splitlines(keepends=True),
+        actual_output.splitlines(keepends=True),
+        fromfile='expected output',
+        tofile='actual output',
+        n=(1 ** 30))
+    _print_truncate(diff_iter, settings.max_lines_output, sys.stderr)
+
+    if os.path.getsize(test_error_path) > 0:
+        with color_utils.ColorizeStderr(*result.get_colorize_colors()):
+            print("> and here's the stderr:",
+                  file=sys.stderr)
+        with open(test_error_path, 'r') as infile:
+            _print_truncate(infile, settings.max_lines_error, sys.stderr)
 
     return result

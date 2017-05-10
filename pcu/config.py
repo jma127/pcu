@@ -13,11 +13,15 @@ class Settings(object):
                  user: str,
                  default_env: str,
                  datetime_format: str,
+                 max_lines_output: int,
+                 max_lines_error: int,
                  envs: List[environment.Environment],
     ) -> None:
         self.user = user
         self.default_env = default_env
         self.datetime_format = datetime_format
+        self.max_lines_output = max_lines_output
+        self.max_lines_error = max_lines_error
         self.envs = envs
 
         self._envs_dict = {}  # type: Dict[str, environment.Environment]
@@ -50,7 +54,9 @@ class Settings(object):
             user=user,
             default_env=str(d['default_env']),
             datetime_format=str(d['datetime_format']),
-            envs=envs
+            max_lines_output=int(d['max_lines_output']),
+            max_lines_error=int(d['max_lines_error']),
+            envs=envs,
         )
         return settings
 
