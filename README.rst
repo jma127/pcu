@@ -2,35 +2,46 @@
 PCU: Programming Contest Utility
 ================================
 
+NOTE: this guide is out of date, stay tuned for updates.
+
 Comprehensive suite for competitive programming
 
 https://github.com/jma127/pcu
 
 PCU is licensed under the Mozilla Public License, version 2.0 (see LICENSE
-file)
+file).
 
-Download
-========
-
-The PCU git repository can be obtained by::
-
-    $ git clone https://github.com/jma127/pcu.git
-
-A ZIP version of the project folder is also available at
-
-https://github.com/jma127/pcu/archive/master.zip
 
 Installation
 ============
 
-PCU installs itself by placing a launch script in your ``PATH`` and copying the
-defaulttemplates folder into the templates folder. A tool is provided in the
-project directory for this purpose::
+Pip
+---
 
-    $ python install.py
+The simplest method::
 
-You should not move or delete the project directory after installation, as the
-source files and templates are not copied to your ``PATH``.
+    pip3 install pcu
+
+Source
+------
+
+Almost as simple::
+
+    git clone https://github.com/jma127/pcu.git
+    cd pcu
+    python3 setup.py install
+
+
+Venv Install
+------------
+
+If you'd like to keep dependencies separate from your system python, then you
+may use the venv_install.py script::
+
+    git clone https://github.com/jma127/pcu.git
+    cd pcu
+    python3 venv_install.py
+
 
 Usage
 =====
@@ -54,6 +65,7 @@ example, the command to compile the Python source file (``problem1.py``) for
 the problem ``problem1`` is::
 
     $ pcu comp -l py problem1
+
 
 Available Tools
 ===============
@@ -241,6 +253,7 @@ options::
 
     $ pcu -h
 
+
 Settings
 ========
 
@@ -249,6 +262,7 @@ This file includes all program options, as well as their default values.
 ``settings.py`` is commented with brief descriptions of all settings. To modify
 a setting, simply change the default to your preferred value. Note that all
 text settings are case-sensitive.
+
 
 Templates
 =========

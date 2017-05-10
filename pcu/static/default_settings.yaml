@@ -1,0 +1,127 @@
+user: os_username
+default_env: cpp
+datetime_format: '%Y-%m-%d %H:%M %Z'
+envs:
+    cpp:
+        template_file: 'cpp.cpp'
+        source_file: ${PCU_PROBLEM_NAME}.cpp
+        compile_command: "g++ --std=c++1y -O2 -o binary.exe '${PCU_SOURCE_FILE}'"
+        run_command: ./binary.exe
+        input_file: PCU_STDIN
+        output_file: PCU_STDOUT
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+        aliases: [c++]
+    cpp_file:
+        template_file: 'cpp_file.cpp'
+        source_file: ${PCU_PROBLEM_NAME}.cpp
+        compile_command: "g++ --std=c++1y -O2 -o binary.exe '${PCU_SOURCE_FILE}'"
+        run_command: ./binary.exe
+        input_file: ${PCU_PROBLEM_NAME}.in
+        output_file: ${PCU_PROBLEM_NAME}.out
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+    cc:
+        template_file: 'cpp.cpp'
+        source_file: ${PCU_PROBLEM_NAME}.cc
+        compile_command: "g++ --std=c++1y -O2 -o binary.exe '${PCU_SOURCE_FILE}'"
+        run_command: ./binary.exe
+        input_file: PCU_STDIN
+        output_file: PCU_STDOUT
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+    cc_file:
+        template_file: 'cpp_file.cpp'
+        source_file: ${PCU_PROBLEM_NAME}.cc
+        compile_command: "g++ --std=c++1y -O2 -o binary.exe '${PCU_SOURCE_FILE}'"
+        run_command: ./binary.exe
+        input_file: ${PCU_PROBLEM_NAME}.in
+        output_file: ${PCU_PROBLEM_NAME}.out
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+    c:
+        template_file: 'c.c'
+        source_file: ${PCU_PROBLEM_NAME}.c
+        compile_command: "gcc --std=c11 -O2 -o binary.exe '${PCU_SOURCE_FILE}'"
+        run_command: ./binary.exe
+        input_file: PCU_STDIN
+        output_file: PCU_STDOUT
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+    c_file:
+        template_file: 'c_file.c'
+        source_file: ${PCU_PROBLEM_NAME}.cc
+        compile_command: "gcc --std=c11 -O2 -o binary.exe '${PCU_SOURCE_FILE}'"
+        run_command: ./binary.exe
+        input_file: ${PCU_PROBLEM_NAME}.in
+        output_file: ${PCU_PROBLEM_NAME}.out
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+    java:
+        template_file: 'java.java'
+        source_file: ${PCU_PROBLEM_NAME}.java
+        compile_command: "javac '${PCU_SOURCE_FILE}'"
+        run_command: java $(PCU_SOURCE_FILE_NOEXT)
+        input_file: PCU_STDIN
+        output_file: PCU_STDOUT
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+    java_file:
+        template_file: 'java_file.java'
+        source_file: ${PCU_PROBLEM_NAME}.java
+        compile_command: "javac '${PCU_SOURCE_FILE}'"
+        run_command: java $(PCU_SOURCE_FILE_NOEXT)
+        input_file: ${PCU_PROBLEM_NAME}.in
+        output_file: ${PCU_PROBLEM_NAME}.out
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+    python2:
+        template_file: 'python2.py'
+        source_file: ${PCU_PROBLEM_NAME}.py
+        compile_command: "python2 -m py_compile '${PCU_SOURCE_FILE}'"
+        run_command: "python2 '${PCU_SOURCE_FILE}'"
+        input_file: PCU_STDIN
+        output_file: PCU_STDOUT
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+        aliases: [py, py2, python]
+    python2_file:
+        template_file: 'python2_file.py'
+        source_file: ${PCU_PROBLEM_NAME}.py
+        compile_command: "python2 -m py_compile '${PCU_SOURCE_FILE}'"
+        run_command: "python2 '${PCU_SOURCE_FILE}'"
+        input_file: ${PCU_PROBLEM_NAME}.in
+        output_file: ${PCU_PROBLEM_NAME}.out
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+    python3:
+        template_file: 'python3.py'
+        source_file: ${PCU_PROBLEM_NAME}.py
+        compile_command: "python3 -m py_compile '${PCU_SOURCE_FILE}'"
+        run_command: "python2 '${PCU_SOURCE_FILE}'"
+        input_file: PCU_STDIN
+        output_file: PCU_STDOUT
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict
+        aliases: [py3]
+    python3_file:
+        template_file: 'python3_file.py'
+        source_file: ${PCU_PROBLEM_NAME}.py
+        compile_command: "python3 -m py_compile '${PCU_SOURCE_FILE}'"
+        run_command: "python2 '${PCU_SOURCE_FILE}'"
+        input_file: ${PCU_PROBLEM_NAME}.in
+        output_file: ${PCU_PROBLEM_NAME}.out
+        compile_timelimit_msec: 60000
+        run_timelimit_msec: 5000
+        format_strictness: strict

@@ -1,6 +1,9 @@
-# Python bytecode #
-###################
+# Python junk #
+###############
 *.py[co]
+*.egg-info
+.mypy_cache/
+__pycache__/
 
 # OS files #
 ############
@@ -8,16 +11,3 @@
 ._*
 .Spotlight*
 .Trash*
-
-# User-generated templates/settings #
-#####################################
-templates
-settings.py
-
-# Problem folder/sandbox #
-##########################
-tmp
-
-# Documentation folder #
-########################
-doc
