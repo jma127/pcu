@@ -71,7 +71,7 @@ envs:
         template_file: 'java.java'
         source_file: ${PCU_PROBLEM_NAME}.java
         compile_command: "javac '${PCU_SOURCE_FILE}'"
-        run_command: java $(PCU_SOURCE_FILE_NOEXT)
+        run_command: java ${PCU_SOURCE_FILE_NOEXT}
         input_file: PCU_STDIN
         output_file: PCU_STDOUT
         compile_timelimit_msec: 60000
@@ -81,7 +81,7 @@ envs:
         template_file: 'java_file.java'
         source_file: ${PCU_PROBLEM_NAME}.java
         compile_command: "javac '${PCU_SOURCE_FILE}'"
-        run_command: java $(PCU_SOURCE_FILE_NOEXT)
+        run_command: java ${PCU_SOURCE_FILE_NOEXT}
         input_file: ${PCU_PROBLEM_NAME}.in
         output_file: ${PCU_PROBLEM_NAME}.out
         compile_timelimit_msec: 60000
