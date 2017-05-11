@@ -12,6 +12,7 @@ from . import defaults
 from . import paths
 from . import problem
 from . import runner
+from . import testgen
 
 
 CommandFn = Callable[[arg_parser.Args], bool]
@@ -21,6 +22,12 @@ def register_command(fn: CommandFn) -> CommandFn:
     assert command_name not in _command_registry
     _command_registry[command_name] = fn
     return fn
+
+
+def dispatch(args: arg_parser.Args) -> None:
+    command = _command_registry[args.command]
+    if not command(args):
+        raise SystemExit(4)
 
 
 @register_command
@@ -43,7 +50,7 @@ def _make(args: arg_parser.Args) -> bool:
 
             if template is None:
                 with color_utils.ColorizeStderrError():
-                    print('Template', template_file, 'was not found -- '
+                    print('ERROR: Template', template_file, 'was not found --',
                           'please add it to', paths.templates_path(),
                           file=sys.stderr)
                     return False
@@ -110,7 +117,7 @@ def _getin(args: arg_parser.Args) -> bool:
             return True
         else:
             with color_utils.ColorizeStderrError():
-                print('Input file for test case', args.test_id, 'in',
+                print('ERROR: Input file for test case', args.test_id, 'in',
                       'problem', prob.name, 'not found',
                       file=sys.stderr)
             return False
@@ -126,7 +133,7 @@ def _getans(args: arg_parser.Args) -> bool:
             return True
         else:
             with color_utils.ColorizeStderrError():
-                print('Answer file for test case', args.test_id, 'in',
+                print('ERROR: Answer file for test case', args.test_id, 'in',
                       'problem', prob.name, 'not found',
                       file=sys.stderr)
             return False
@@ -142,7 +149,7 @@ def _getout(args: arg_parser.Args) -> bool:
             return True
         else:
             with color_utils.ColorizeStderrError():
-                print('Output file for test case', args.test_id, 'in',
+                print('ERROR: Output file for test case', args.test_id, 'in',
                       'problem', prob.name, 'not found',
                       file=sys.stderr)
             return False
@@ -158,8 +165,8 @@ def _geterr(args: arg_parser.Args) -> bool:
             return True
         else:
             with color_utils.ColorizeStderrError():
-                print('Standard error file for test case', args.test_id, 'in',
-                      'problem', prob.name, 'not found',
+                print('ERROR: Standard error file for test case', args.test_id,
+                      'in problem', prob.name, 'not found',
                       file=sys.stderr)
             return False
 
@@ -310,7 +317,9 @@ def _envoverride(args: arg_parser.Args) -> bool:
 
     return True
 
-def dispatch(args: arg_parser.Args) -> None:
-    command = _command_registry[args.command]
-    if not command(args):
-        raise SystemExit(4)
+
+@register_command
+def _testgen(args: arg_parser.Args) -> bool:
+    with problem.Problem(args.problem) as prob:
+        return testgen.generate_tests(
+            prob, args.executable, args.prefix, args.numcases)

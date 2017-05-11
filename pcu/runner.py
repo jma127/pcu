@@ -65,7 +65,7 @@ def run_cases(prob: problem.Problem,
     test_ids = sorted(test_ids)
     if not test_ids:
         with color_utils.ColorizeStderrWarning():
-            print('No testcases to run! Generate some with '
+            print('No test cases to run! Generate some with '
                   '"pcu setin" and "pcu setans".',
                   file=sys.stderr)
         return True
@@ -136,7 +136,7 @@ def _run_case(prob, working_dir, test_id) -> TestCaseResult:
 
             try:
                 sp_result = subprocess.run(prob.run_command,  # type: ignore
-                    cwd = working_dir,
+                    cwd=working_dir,
                     stdin=stdin,
                     stdout=stdout,
                     stderr=stderr,
