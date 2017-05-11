@@ -12,6 +12,8 @@ PCU is licensed under the BSD 3-clause license (see LICENSE file).
 Installation
 ============
 
+All installations require Python 3.6+ with setuptools.
+
 Pip
 ---
 
