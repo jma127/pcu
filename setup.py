@@ -14,10 +14,10 @@ setup(
     include_package_data=True,
 
     install_requires=[
-        'colorama>=0.3<0.4',
+        'colorama>=0.3<1',
         'filelock>=2<3',
-        'inflection>=0.3<0.4',
-        'pyyaml>=3<4'
+        'inflection>=0.3<1',
+        'pyyaml>=3<4',
     ],
 
     zip_safe=False,
