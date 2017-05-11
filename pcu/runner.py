@@ -152,6 +152,7 @@ def _run_case(prob, working_dir, test_id) -> TestCaseResult:
             except Exception:
                 pass
 
+    # Handle some edge cases
     assert sp_result is not None
     if sp_result.returncode != 0:
         print('Exit code', sp_result.returncode,
@@ -166,43 +167,66 @@ def _run_case(prob, working_dir, test_id) -> TestCaseResult:
     shutil.copy2(run_output_path, test_output_path)
     shutil.copy2(pcu_stderr_path, test_error_path)
 
-    if not test_answer_path.is_file():
-        return TestCaseResult.NO_ANSWER_FILE_PROVIDED
-
-    with open(test_answer_path, 'r') as infile:
-        expected_output = infile.read()
+    # Edge cases are handled, time for the fun stuff now
     with open(test_output_path, 'r') as infile:
         actual_output = infile.read()
+        actual_output_lines = actual_output.splitlines()
+    result = None
+    expected_output = None
 
-    match = expected_output == actual_output
-    match_minus_whitespace = match or \
-        (''.join(expected_output.split()) ==
-         ''.join(actual_output.split()))
+    # If no answer file was provided, then we should exit after printing
+    # the output/error preview.
+    if not test_answer_path.is_file():
+        result = TestCaseResult.NO_ANSWER_FILE_PROVIDED
 
-    if prob.env.format_strictness == environment.FormatStrictness.LAX:
-        if match_minus_whitespace:
-            return TestCaseResult.CORRECT
     else:
-        assert prob.env.format_strictness == environment.FormatStrictness.STRICT
-        if match:
-            return TestCaseResult.CORRECT
+        with open(test_answer_path, 'r') as infile:
+            expected_output = infile.read()
+            expected_output_lines = expected_output.splitlines()
 
-    result = (TestCaseResult.PRESENTATION_ERROR
-              if match_minus_whitespace
-              else TestCaseResult.WRONG_ANSWER)
+        match_exact = expected_output == actual_output
+        match_minus_whitespace = match_exact or \
+            (''.join(expected_output.split()) ==
+             ''.join(actual_output.split()))
 
-    with color_utils.ColorizeStderr(*result.get_colorize_colors()):
-        print(inflection.humanize(result.name), "-- here's the diff:",
-              file=sys.stderr)
+        # Figure out the disposition of the test case.
+        if prob.env.format_strictness == environment.FormatStrictness.LAX:
+            result = (TestCaseResult.CORRECT
+                      if match_minus_whitespace
+                      else TestCaseResult.WRONG_ANSWER)
+        else:
+            assert prob.env.format_strictness == environment.FormatStrictness.STRICT
+            result = (TestCaseResult.CORRECT
+                      if match_exact
+                      else (TestCaseResult.PRESENTATION_ERROR
+                            if match_minus_whitespace
+                            else TestCaseResult.WRONG_ANSWER))
 
-    diff_iter = difflib.unified_diff(
-        expected_output.splitlines(keepends=True),
-        actual_output.splitlines(keepends=True),
-        fromfile='expected output',
-        tofile='actual output',
-        n=(1 ** 30))
-    _print_truncate(diff_iter, settings.max_lines_output, sys.stderr)
+    # If the program was correct, there's nothing to print.
+    if result == TestCaseResult.CORRECT:
+        return result
 
+    # print either the output or the diff
+    if result == TestCaseResult.NO_ANSWER_FILE_PROVIDED:
+        with color_utils.ColorizeStderr(*result.get_colorize_colors()):
+            print(inflection.humanize(result.name), "-- here's the output:",
+                  file=sys.stderr)
+        with open(test_output_path, 'r') as infile:
+            _print_truncate(infile, settings.max_lines_output, sys.stderr)
+
+    else:
+        with color_utils.ColorizeStderr(*result.get_colorize_colors()):
+            print(inflection.humanize(result.name), "-- here's the diff:",
+                  file=sys.stderr)
+        diff_iter = difflib.unified_diff(
+            expected_output.splitlines(keepends=True),
+            actual_output.splitlines(keepends=True),
+            fromfile='expected output',
+            tofile='actual output',
+            n=(1 ** 30))
+        _print_truncate(diff_iter, settings.max_lines_output, sys.stderr)
+
+    # print stderr
     if os.path.getsize(test_error_path) > 0:
         with color_utils.ColorizeStderr(*result.get_colorize_colors()):
             print("> and here's the stderr:",
