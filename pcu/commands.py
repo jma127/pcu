@@ -175,11 +175,11 @@ def _geterr(args: arg_parser.Args) -> bool:
 def _setin(args: arg_parser.Args) -> bool:
     with problem.Problem(args.problem) as prob:
         path = prob.get_test_input_path(args.test_id)
-        if path.exists():
-            assert path.is_file()
-            path.unlink()
-
         with open(path, 'wb') as outfile:
+            if sys.stdin.isatty():
+                print('Enter the input for test case', args.test_id, 'below,',
+                      'terminated by Ctrl-D',
+                      file=sys.stderr)
             shutil.copyfileobj(sys.stdin.buffer.raw, outfile)  # type: ignore
 
     with color_utils.ColorizeStderrGood():
@@ -194,11 +194,11 @@ def _setin(args: arg_parser.Args) -> bool:
 def _setans(args: arg_parser.Args) -> bool:
     with problem.Problem(args.problem) as prob:
         path = prob.get_test_answer_path(args.test_id)
-        if path.exists():
-            assert path.is_file()
-            path.unlink()
-
         with open(path, 'wb') as outfile:
+            if sys.stdin.isatty():
+                print('Enter the answer for test case', args.test_id, 'below,',
+                      'terminated by Ctrl-D',
+                      file=sys.stderr)
             shutil.copyfileobj(sys.stdin.buffer.raw, outfile)  # type: ignore
 
     with color_utils.ColorizeStderrGood():
