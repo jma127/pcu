@@ -68,10 +68,10 @@ class Settings(object):
         return cls.from_dict(all_settings)
 
 
-def _update_dict(d, u):
+def _update_dict(d: Dict, u: Dict) -> Dict:
     for k, v in u.items():
-        if isinstance(v, collections.Mapping):
-            r = update(d.get(k, {}), v)
+        if isinstance(v, dict):
+            r = _update_dict(d.get(k, {}), v)
             d[k] = r
         else:
             d[k] = u[k]
