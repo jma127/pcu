@@ -1,5 +1,4 @@
 import functools
-import os
 import pathlib
 
 
@@ -46,7 +45,7 @@ def locks_path() -> pathlib.Path:
 
 
 @functools.lru_cache(maxsize=None, typed=True)
-def lock_path(lock_name) -> pathlib.Path:
+def lock_path(lock_name: str) -> pathlib.Path:
     lock_fn = lock_name + '.lock'
     lock_path = locks_path() / lock_fn
     return lock_path

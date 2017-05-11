@@ -2,15 +2,13 @@ import collections
 import difflib
 import enum
 import inflection
-import io
 import itertools
 import os
 import pathlib
 import shutil
-import string
 import subprocess
 import sys
-from typing import DefaultDict, Iterable, List, Optional
+from typing import DefaultDict, IO, Iterable, List, Optional
 
 from . import color_utils
 from . import config
@@ -39,7 +37,7 @@ class TestCaseResult(enum.Enum):
 def _print_truncate(
     lines: Iterable,
     max_lines: int,
-    outfile,
+    outfile: IO,
 ) -> None:
     for i, line in enumerate(itertools.islice(lines, max_lines)):
         if i + 1 == max_lines:
@@ -110,7 +108,10 @@ def run_cases(prob: problem.Problem,
     return True
 
 
-def _run_case(prob, working_dir, test_id) -> TestCaseResult:
+def _run_case(prob: problem.Problem,
+              working_dir: pathlib.Path,
+              test_id: str
+) -> TestCaseResult:
     settings = config.get_settings()
 
     test_input_path = prob.get_test_input_path(test_id)

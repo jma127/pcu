@@ -5,7 +5,7 @@ import pathlib
 import shutil
 import string
 import sys
-from typing import Dict, Iterable, List, Optional, Union
+from typing import Any, Dict, Iterable, List, Optional, Type, Union
 
 from . import color_utils
 from . import config
@@ -40,7 +40,7 @@ class Problem(object):
         env: Optional[environment.Environment] = None,
         clean: bool = False,
         delete_on_exit: bool = False,
-        die_on_exc_types = [ProblemAlreadyLocked, ProblemSettingsNotFound],
+        die_on_exc_types: Iterable[Type[BaseException]] = [ProblemAlreadyLocked, ProblemSettingsNotFound],
     ) -> None:
         self.name = name
         self.original_env = env
@@ -186,7 +186,11 @@ class Problem(object):
             self.__exit__(*sys.exc_info())
             raise
 
-    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+    def __exit__(self,
+                 exc_type: Optional[Type],
+                 exc_val: Optional[Any],
+                 exc_tb: Optional[Any],
+    ) -> None:
         if self._delete_on_exit:
             try:  # best effort delete
                 if self.path.exists():

@@ -1,4 +1,3 @@
-import collections
 import getpass
 from typing import Dict, List
 
@@ -35,7 +34,7 @@ class Settings(object):
     def get_env_names_and_aliases(self) -> List[str]:
         return list(sorted(self._envs_dict.keys()))
 
-    def get_env(self, env_name:str) -> environment.Environment:
+    def get_env(self, env_name: str) -> environment.Environment:
         return self._envs_dict[env_name]
 
     @classmethod
@@ -61,7 +60,7 @@ class Settings(object):
         return settings
 
     @classmethod
-    def from_yaml(cls, default_data, settings_data) -> 'Settings':
+    def from_yaml(cls, default_data: str, settings_data: str) -> 'Settings':
         default = yaml_util.load_dict(default_data)
         settings = yaml_util.load_dict(settings_data)
         all_settings = _update_dict(default, settings)

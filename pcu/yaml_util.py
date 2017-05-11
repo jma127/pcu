@@ -1,8 +1,8 @@
-from typing import Dict, IO
+from typing import Dict, IO, Optional
 import yaml
 
 
-def load_dict(s) -> Dict:
+def load_dict(s: Optional[str]) -> Dict:
     if not s:
         return {}
 
@@ -16,4 +16,3 @@ def load_dict(s) -> Dict:
 
 def write_dict(d: Dict, f: IO) -> None:
     yaml.safe_dump(d, stream=f)
-
