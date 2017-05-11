@@ -54,6 +54,10 @@ def generate_tests(prob: problem.Problem,
                       file=sys.stderr)
             return False
 
+    with color_utils.ColorizeStderrGood():
+        print('Successfully generated', num_cases, 'test cases for',
+              'problem', prob.name,
+              file=sys.stderr)
     return True
 
 
