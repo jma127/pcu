@@ -259,6 +259,57 @@ def _delprobs(args: arg_parser.Args) -> bool:
     return True
 
 
+@register_command
+def _info(args: arg_parser.Args) -> bool:
+    with problem.Problem(args.problem) as prob:
+        with color_utils.ColorizeStderrBar1():
+            print('=' * 20, 'Info for problem', prob.name, '=' * 20,
+                  file=sys.stderr)
+        print('Environment:', prob.env.name,
+              file=sys.stderr)
+        if prob.env_overrides:
+            print('Environment overrides:', prob.env_overrides,
+                  file=sys.stderr)
+
+        test_ids = prob.get_test_ids()
+        print('Test cases ({}):'.format(len(test_ids)), test_ids,
+              file=sys.stderr)
+
+    return True
+
+
+@register_command
+def _chgenv(args: arg_parser.Args) -> bool:
+    settings = config.get_settings()
+
+    with problem.Problem(args.problem) as prob:
+        prob.original_env = settings.get_env(args.env)
+        prob.update_env()
+        with color_utils.ColorizeStderrGood():
+            print('Changed environment for problem', prob.name,
+                  'to', prob.env.name,
+                  file=sys.stderr)
+
+    return True
+
+
+@register_command
+def _envoverride(args: arg_parser.Args) -> bool:
+    with problem.Problem(args.problem) as prob:
+        if args.new_value:
+            prob.env_overrides[args.env_setting] = args.new_value
+        else:
+            prob.env_overrides.pop(args.env_setting, None)
+        prob.update_env()
+
+        with color_utils.ColorizeStderrGood():
+            print('Added environment override',
+                  args.env_setting + '=' + str(args.new_value),
+                  'for problem', prob.name,
+                  file=sys.stderr)
+
+    return True
+
 def dispatch(args: arg_parser.Args) -> None:
     command = _command_registry[args.command]
     if not command(args):

@@ -68,8 +68,12 @@ def _get_parser() -> argparse.ArgumentParser:
     delprobs = subparsers.add_parser('delprobs',
         help='delete all pcu data for all problems')
 
+    info = subparsers.add_parser('info',
+        help='print some problem information (e.g. environment, testcases)')
     chgenv = subparsers.add_parser('chgenv',
         help='change environment')
+    envoverride = subparsers.add_parser('envoverride',
+        help='override environment setting')
 
     testgen = subparsers.add_parser('testgen',
         help='generate tests from program')
@@ -91,6 +95,9 @@ def _get_parser() -> argparse.ArgumentParser:
         setans,
         delcases,
         delprob,
+        info,
+        chgenv,
+        envoverride,
         testgen,
     ]
     test_id_commands = [
@@ -133,6 +140,14 @@ def _get_parser() -> argparse.ArgumentParser:
             metavar='env',
             choices=settings.get_env_names_and_aliases(),
             default=(None if required else settings.default_env))
+
+    envoverride.add_argument(
+        'env_setting',
+        help='setting to change (e.g. compile_command, run_timelimit_msec)')
+    envoverride.add_argument(
+        'new_value',
+        help='new value for the setting (leave blank to remove the override)',
+        nargs='?')
 
     testgen.add_argument(
         'executable',

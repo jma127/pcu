@@ -20,7 +20,7 @@ def compile(prob: problem.Problem,
 
         if not old_source_path.is_file():
             with color_utils.ColorizeStderrError():
-                print('ERROR: Source file', prob.source_file, 'not found in ',
+                print('ERROR: Source file', prob.source_file, 'not found in',
                       'current directory',
                       file=sys.stderr)
                 print('(expected at', old_source_path, ')',

@@ -92,6 +92,13 @@ class Problem(object):
     def get_test_error_path(self, test_id: str) -> pathlib.Path:
         return self._testcases_path / (test_id + '.err')
 
+    def update_env(self) -> None:
+        env_dict = self.original_env.to_dict()
+        env_dict.update(self.env_overrides)
+        self.env = environment.Environment.from_dict(env_dict)
+        self._update_mapping()
+        self._write_settings_dict()
+
     def _get_settings_dict(self) -> Dict:
         d = {
             'env_name': self.original_env.name,
@@ -103,12 +110,6 @@ class Problem(object):
         settings_dict = self._get_settings_dict()
         with open(self._settings_path, 'w') as outfile:
             yaml_util.write_dict(settings_dict, outfile)
-
-    def _update_env(self) -> None:
-        env_dict = self.original_env.to_dict()
-        env_dict.update(self.env_overrides)
-        self.env = environment.Environment.from_dict(env_dict)
-        self._update_mapping()
 
     def _update_mapping(self) -> None:
         settings = config.get_settings()
@@ -156,13 +157,11 @@ class Problem(object):
                 self.original_env = config.get_settings().get_env(
                     data_dict['env_name'])
                 self.env_overrides = data_dict['env_overrides']
-
         else:
             if self.original_env is None:
                 raise ProblemSettingsNotFound(self.name)
 
-        self._update_env()
-        self._write_settings_dict()
+        self.update_env()
 
     def _acquire_lock(self) -> None:
         try:
