@@ -5,6 +5,11 @@
 .mypy_cache/
 __pycache__/
 
+# Distribution #
+################
+build/
+dist/
+
 # OS files #
 ############
 .DS*
