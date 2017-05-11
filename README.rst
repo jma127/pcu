@@ -8,8 +8,7 @@ Comprehensive suite for competitive programming
 
 https://github.com/jma127/pcu
 
-PCU is licensed under the Mozilla Public License, version 2.0 (see LICENSE
-file).
+PCU is licensed under the BSD 3-clause license (see LICENSE file).
 
 
 Installation
