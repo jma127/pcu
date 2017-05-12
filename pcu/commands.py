@@ -254,14 +254,7 @@ def _delprobs(args: arg_parser.Args) -> bool:
     for problem_path in problems_path.iterdir():
         if not problem_path.is_dir():
             continue
-        prob_name = problem_path.name
-        try:
-            with problem.Problem(prob_name, delete_on_exit=True):
-                pass
-        except Exception:
-            with color_utils.ColorizeStderrWarning():
-                print('Error deleting problem', prob_name,
-                      file=sys.stderr)
+        shutil.rmtree(problem_path)
 
     return True
 
