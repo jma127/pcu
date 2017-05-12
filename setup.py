@@ -5,7 +5,7 @@ setup(
     version='0.1.1',
     description='Comprehensive suite for competitive programming.',
     author='Jerry Ma',
-    author_email='jma127@users.noreply.github.com',
+    author_email='jmnospam@mail.com',
     url='https://github.com/jma127/pcu',
     license='BSD-new',
 
