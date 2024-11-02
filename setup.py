@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pcu',
-    version='0.1.3',
+    version='0.1.4',
     description='Comprehensive suite for competitive programming.',
     author='Jerry Ma',
     author_email='jmnospam@mail.com',
