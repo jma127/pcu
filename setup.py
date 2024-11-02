@@ -9,9 +9,12 @@ setup(
     url='https://github.com/jma127/pcu',
     license='BSD-new',
 
-    packages=find_packages(),
+    packages=find_packages(exclude=['pcu.static', 'pcu.static.*']),
     scripts=['scripts/pcu'],
-    include_package_data=True,
+
+    package_data={
+        "pcu": ["static/**/*"],
+    },
 
     install_requires=[
         'colorama>=0.4,<1',
