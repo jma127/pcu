@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pcu',
-    version='0.1.2',
+    version='0.1.3',
     description='Comprehensive suite for competitive programming.',
     author='Jerry Ma',
     author_email='jmnospam@mail.com',
@@ -14,10 +14,10 @@ setup(
     include_package_data=True,
 
     install_requires=[
-        'colorama>=0.4<1',
-        'filelock>=3<4',
-        'inflection>=0.5<1',
-        'pyyaml>=5<6',
+        'colorama>=0.4,<1',
+        'filelock>=3,<4',
+        'inflection>=0.5,<1',
+        'pyyaml>=6,<7',
     ],
 
     zip_safe=False,
