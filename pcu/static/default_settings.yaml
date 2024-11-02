@@ -113,7 +113,7 @@ envs:
         template_file: 'python3.py'
         source_file: ${PCU_PROBLEM_NAME}.py
         compile_command: "python3 -m py_compile '${PCU_SOURCE_FILE}'"
-        run_command: "python2 '${PCU_SOURCE_FILE}'"
+        run_command: "python3 '${PCU_SOURCE_FILE}'"
         input_file: PCU_STDIN
         output_file: PCU_STDOUT
         compile_timelimit_msec: 60000
@@ -124,7 +124,7 @@ envs:
         template_file: 'python3_file.py'
         source_file: ${PCU_PROBLEM_NAME}.py
         compile_command: "python3 -m py_compile '${PCU_SOURCE_FILE}'"
-        run_command: "python2 '${PCU_SOURCE_FILE}'"
+        run_command: "python3 '${PCU_SOURCE_FILE}'"
         input_file: ${PCU_PROBLEM_NAME}.in
         output_file: ${PCU_PROBLEM_NAME}.out
         compile_timelimit_msec: 60000
