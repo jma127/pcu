@@ -1,4 +1,5 @@
 import argparse
+import importlib.metadata
 import pathlib
 import string
 import sys
@@ -17,6 +18,10 @@ def _get_parser() -> argparse.ArgumentParser:
         prog='pcu',
         description='pcu: comprehensive suite for competitive programming',
         epilog='Copyright 2017, Jerry Ma. https://github.com/jma127/pcu')
+    parser.add_argument(
+        '-v', '--version',
+        action='version',
+        version=f'%(prog)s {importlib.metadata.version("pcu")}')
 
     subparsers = parser.add_subparsers(
         title='command',

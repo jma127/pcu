@@ -1,2 +1,0 @@
-recursive-include pcu/static *.yaml
-recursive-include pcu/static/default_templates *

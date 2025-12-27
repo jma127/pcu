@@ -4,6 +4,7 @@
 *.egg-info
 .mypy_cache/
 __pycache__/
+.venv/
 
 # Distribution #
 ################

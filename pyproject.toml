@@ -1,0 +1,24 @@
+[project]
+name = "pcu"
+version = "0.1.6"
+description = "Comprehensive suite for competitive programming."
+readme = "README.rst"
+requires-python = ">=3.10"
+license = "BSD-3-Clause"
+authors = [
+    { name = "Jerry Ma", email = "jmnospam@mail.com" }
+]
+urls = { Homepage = "https://github.com/jma127/pcu" }
+dependencies = [
+    "colorama>=0.4,<1",
+    "filelock>=3,<4",
+    "inflection>=0.5,<1",
+    "pyyaml>=6,<7",
+]
+
+[project.scripts]
+pcu = "pcu.main:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
